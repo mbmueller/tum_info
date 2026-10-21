@@ -1,0 +1,66 @@
+name: Build Grades App
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "app-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset: Grades-linux.tar.gz
+          - os: windows-latest
+            asset: Grades-windows.exe
+          - os: macos-latest
+            asset: Grades-macos.dmg
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: 📂 setup
+        uses: actions/checkout@v7
+
+      - name: 🐍 setup python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: 📦 install dependencies
+        run: pip install requests PySide6 pyinstaller
+
+      - name: 🔨 build app
+        run: pyinstaller --noconfirm scripts/course_glob_ui.spec
+
+      - name: 🐧 package linux
+        if: runner.os == 'Linux'
+        # tar keeps the executable bit, which plain artifacts lose
+        run: tar -czf ${{ matrix.asset }} -C dist Grades
+
+      - name: 🪟 package windows
+        if: runner.os == 'Windows'
+        run: mv dist/Grades.exe ${{ matrix.asset }}
+
+      - name: 🍏 package macos
+        if: runner.os == 'macOS'
+        run: |
+          brew install create-dmg
+          bash scripts/course_glob_ui_build.sh
+          mv dist/Grades.dmg ${{ matrix.asset }}
+
+      - name: 🚀 upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+
+      - name: 🏷️ attach to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3
+        with:
+          files: ${{ matrix.asset }}
