@@ -24,4 +24,4 @@ grades:
   - { grade: 6.0, people: 15 }
 ---
 
-![image](https://github.com/mcmikecreations/tum_info/assets/17436789/bcbfe625-59b9-4040-b019-0b184d1f51df)
+![image](https://github.com/mykolamor/tum_info/assets/17436789/bcbfe625-59b9-4040-b019-0b184d1f51df)

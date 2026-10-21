@@ -1,19 +1,19 @@
 title: TUM Info
 author:
   name: Mykola Morozov
-  email: mcmikecreations@gmail.com
+  email: contact@mykolamor.com
 description: >-
   A bunch of useful information I've collected while studying at the Technical University of Munich.
 baseurl: "/tum_info"
 url: ""
-github_username:  mcmikecreations
+github_username:  mykolamor
 
 # https://github.com/jekyll/minima
 minima:
   skin: auto
   date_format: "%b %-d, %Y"
   social_links:
-    - { platform: github,         user_url: "https://github.com/mcmikecreations/tum_info" }
+    - { platform: github,         user_url: "https://github.com/mykolamor/tum_info" }
     - { platform: tum,            user_url: "https://www.tum.de/", title:  Official TUM website }
 
 show_excerpts: false

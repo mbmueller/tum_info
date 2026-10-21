@@ -31,4 +31,4 @@ grades:
   - { grade: 6.0, people: 50 }
 ---
 
-![image](https://github.com/mcmikecreations/tum_info/assets/17436789/bb33fc55-4f93-4d61-b5ae-2b9a2e55d42f)
+![image](https://github.com/mykolamor/tum_info/assets/17436789/bb33fc55-4f93-4d61-b5ae-2b9a2e55d42f)

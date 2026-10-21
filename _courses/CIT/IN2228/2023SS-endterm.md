@@ -33,4 +33,4 @@ grades:
 
 One person withdrew their work. Not present on the plot.
 
-![image](https://github.com/mcmikecreations/tum_info/assets/17436789/eda25db9-97ac-4acb-ae85-e564ecee0c54)
+![image](https://github.com/mykolamor/tum_info/assets/17436789/eda25db9-97ac-4acb-ae85-e564ecee0c54)
