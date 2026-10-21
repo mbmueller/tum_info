@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "app-v*"
+      - "[0-9]*"
 
 permissions:
   contents: write
@@ -16,11 +16,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            asset: Grades-linux.tar.gz
+            asset: Grades
           - os: windows-latest
-            asset: Grades-windows.exe
+            asset: Grades.exe
           - os: macos-latest
-            asset: Grades-macos.dmg
+            asset: Grades.dmg
     runs-on: ${{ matrix.os }}
     steps:
       - name: 📂 setup
@@ -37,30 +37,20 @@ jobs:
       - name: 🔨 build app
         run: pyinstaller --noconfirm scripts/course_glob_ui.spec
 
-      - name: 🐧 package linux
-        if: runner.os == 'Linux'
-        # tar keeps the executable bit, which plain artifacts lose
-        run: tar -czf ${{ matrix.asset }} -C dist Grades
-
-      - name: 🪟 package windows
-        if: runner.os == 'Windows'
-        run: mv dist/Grades.exe ${{ matrix.asset }}
-
       - name: 🍏 package macos
         if: runner.os == 'macOS'
         run: |
           brew install create-dmg
           bash scripts/course_glob_ui_build.sh
-          mv dist/Grades.dmg ${{ matrix.asset }}
 
       - name: 🚀 upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.asset }}
-          path: ${{ matrix.asset }}
+          path: dist/${{ matrix.asset }}
 
       - name: 🏷️ attach to release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v3
         with:
-          files: ${{ matrix.asset }}
+          files: dist/${{ matrix.asset }}
