@@ -5,7 +5,7 @@ gem "minima", "~> 2.5.1"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.17.0"
-  gem "jekyll-remote-theme", "~> 0.4.3"
+  gem "jekyll-remote-theme", "~> 0.5.2"
   gem "jekyll-seo-tag", "~> 2.8.0"
   gem 'jekyll-toc', '~> 0.18.0'
 end
